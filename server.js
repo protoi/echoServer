@@ -74,9 +74,9 @@ exp.post("/echo", (req, res) => {
     echoed_message = send_data(sender_number, sent_message)
 
 
-    axios(echoed_message).catch(function (error) {
-        console.log(error);
-    });
+    // axios(echoed_message).catch(function (error) {
+    //     console.log(error);
+    // });
 
 
 
