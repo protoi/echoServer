@@ -3,7 +3,7 @@ const router = require("express").Router();
 const exp = express();
 const port = 9999;
 
-require('dotenv').config(); 
+require('dotenv').config();
 
 
 exp.use(express.json());
@@ -68,9 +68,16 @@ exp.get("/echo", (req, res) => {
 exp.post("/echo", (req, res) => {
     // console.log("hello world");
     // console.dir(req, { depth: null });
-
-    var sender_number = req.body.entry[0].changes[0].value["messages"][0]["from"]
-    var sent_message = req.body.entry[0].changes[0].value["messages"][0]["text"]["body"]
+    var sender_number = null
+    var sent_message = null
+    try {
+        sender_number = req.body.entry[0].changes[0].value["messages"][0]["from"]
+        sent_message = req.body.entry[0].changes[0].value["messages"][0]["text"]["body"]
+    } catch (error) {
+        console.log("catch block entered")
+        sender_number = "919836147547";
+        sent_message = "HELLO WORLD";
+    }
 
     console.log(process.env.AUTH_TOKEN)
     console.log(`number: ${sender_number} message: ${sent_message}`)
@@ -80,6 +87,7 @@ exp.post("/echo", (req, res) => {
 
     axios(echoed_message).catch(function (error) {
         // console.log(error);
+        console.log("oh no");
     });
 
     res.sendStatus(200);
