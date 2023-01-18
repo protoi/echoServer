@@ -10,6 +10,7 @@ var axios = require('axios');
 
 
 function generate_data(phone, text) {
+    console.log("generating data");
     var data = JSON.stringify({
         "messaging_product": "whatsapp",
         "to": `${phone}`,
@@ -23,18 +24,19 @@ function generate_data(phone, text) {
 
 
 function send_data(phone_no, text_message) {
+    console.log("sending data");
     var config = {
         method: 'post',
         url: 'https://graph.facebook.com/v15.0/105933825735159/messages',
         headers: {
-            'Authorization': 'Bearer EAAM2puiL5QQBAMYlXZAmqMlsqwavzZAhFWNSQa6dL6uCghxgF1OZCcuJ8LIJZCeFeMqG434ACFVaxQCtXIS0sdikwFbfoW1RfoGS7fg14iSLHkbB0hhyArRJbMeSnM3uObjmZAiT1VdfYVIU5NSTZCrhZCeYHhW4dgJyUA7zof7fILM0sO8oouMakJfszig5uXRxnxUbSA0nNJFUlZBa2UZBu',
+            'Authorization': `Bearer ${process.env.AUTH_TOKEN}`,
             'Content-Type': 'application/json'
         },
         data: generate_data(phone_no, text_message)
     };
 
     return config;
-    
+
 
 }
 
@@ -74,10 +76,10 @@ exp.post("/echo", (req, res) => {
     echoed_message = send_data(sender_number, sent_message)
     axios(echoed_message).then(function (response) {
         console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    })
+        .catch(function (error) {
+            console.log(error);
+        });
 
 
 
