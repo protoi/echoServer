@@ -30,7 +30,9 @@ exp.get("/echo", (req, res) => {
 });
 
 exp.post("/echo", (req, res) => {
-    console.log("hello world");
+    // console.log("hello world");
+    console.dir(req, {depth: null});
+
     // const echotext = `Received message was "${req.body.echothis}"`;
     console.log(req.body);
     res.send(req.body);
