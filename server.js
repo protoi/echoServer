@@ -1,4 +1,5 @@
 const express = require("express");
+const router = require("express").Router();
 const exp = express();
 const port = 9999;
 
@@ -16,11 +17,16 @@ exp.get("/", (req, res) => {
 // });
 
 exp.post("/echo", (req, res) => {
-    const echotext = `Received message was "${req.body.echothis}"`;
-    console.log(echotext);
+    // const echotext = `Received message was "${req.body.echothis}"`;
+
+    console.log(req.body);
     res.send(echotext);
 
 });
+
+
+exp.get
+
 
 exp.listen(port, () => {
     console.log(`express app listening to port ${port}`);
