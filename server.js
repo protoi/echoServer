@@ -68,6 +68,7 @@ exp.get("/echo", (req, res) => {
 exp.post("/echo", (req, res) => {
     // console.log("hello world");
     // console.dir(req, { depth: null });
+    return;
     var sender_number = null
     var sent_message = null
     try {
