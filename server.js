@@ -81,8 +81,8 @@ exp.post("/echo", (req, res) => {
 
 
     // const echotext = `Received message was "${req.body.echothis}"`;
-    console.log(req.body);
-    res.send(req.body);
+    // console.log(req.body);
+    // res.send(req.body);
 
 });
 
