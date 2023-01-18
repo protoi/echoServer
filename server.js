@@ -1,10 +1,27 @@
-var http = require("http")
+const express = require("express");
+const exp = express();
+const port = 9999;
 
-var server  = http.createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/html' }); 
-    res.write("Hello World");
-    res.end();
+exp.use(express.json());
+exp.use(express.urlencoded({ extended: true }));
+
+
+exp.get("/", (req, res) => {
+    res.send("Hello world");
 });
 
-server.listen(9999);
-console.log("web server running at http://localhost:9999");
+// exp.get("/name", (req, res) =>{
+//     const username = req.query.username;
+//     res.send(username);
+// });
+
+exp.post("/echo", (req, res) => {
+    const echotext = `Received message was "${req.body.echothis}"`;
+    console.log(echotext);
+    res.send(echotext);
+
+});
+
+exp.listen(port, () => {
+    console.log(`express app listening to port ${port}`);
+});
