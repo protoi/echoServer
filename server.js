@@ -20,10 +20,10 @@ exp.get("/echo", (req, res) => {
     console.dir("logging");
     const keyChecker = req.query["hub.verify_token"];
     const challenge = req.query["hub.challenge"];
+    console.log(`token: ${keyChecker}, challenge: ${challenge}`)
 
     if (keyChecker === "helloworld") {
         res.send(challenge);
-        console.log(`token: ${keyChecker}, challenge: ${challenge}`)
     }
     else
         res.sendStatus(403);
