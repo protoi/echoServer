@@ -17,7 +17,7 @@ exp.get("/", (req, res) => {
 // });
 
 exp.get("/echo", (req, res) => {
-    console.dir(req);
+    console.dir("logging");
     const keyChecker = req.query["hub.verify_token"];
     const challenge = req.query["hub.challenge"];
 
