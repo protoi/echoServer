@@ -66,20 +66,17 @@ exp.post("/echo", (req, res) => {
     // console.log("hello world");
     // console.dir(req, { depth: null });
 
-    const sender_number = req.body.entry[0].changes[0].value["messages"][0]["from"]
-    const sent_message = req.body.entry[0].changes[0].value["messages"][0]["text"]["body"]
-
-
+    var sender_number = req.body.entry[0].changes[0].value["messages"][0]["from"]
+    var sent_message = req.body.entry[0].changes[0].value["messages"][0]["text"]["body"]
 
     console.log(`number: ${sender_number} message: ${sent_message}`)
 
     echoed_message = send_data(sender_number, sent_message)
-    axios(echoed_message).then(function (response) {
-        console.log(JSON.stringify(response.data));
-    })
-        .catch(function (error) {
-            console.log(error);
-        });
+
+
+    axios(echoed_message).catch(function (error) {
+        console.log(error);
+    });
 
 
 
