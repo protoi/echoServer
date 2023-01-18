@@ -17,6 +17,7 @@ exp.get("/", (req, res) => {
 // });
 
 exp.get("/echo", (req, res) => {
+    console.dir(req);
     const keyChecker = req.query["hub.verify_token"];
     const challenge = req.query["hub.challenge"];
 
@@ -25,7 +26,7 @@ exp.get("/echo", (req, res) => {
         console.log(`token: ${keyChecker}, challenge: ${challenge}`)
     }
     else
-        res.send(403);
+        res.sendStatus(403);
 });
 
 exp.post("/echo", (req, res) => {
