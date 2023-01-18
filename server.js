@@ -3,6 +3,9 @@ const router = require("express").Router();
 const exp = express();
 const port = 9999;
 
+require('dotenv').config(); 
+
+
 exp.use(express.json());
 exp.use(express.urlencoded({ extended: true }));
 
@@ -69,15 +72,17 @@ exp.post("/echo", (req, res) => {
     var sender_number = req.body.entry[0].changes[0].value["messages"][0]["from"]
     var sent_message = req.body.entry[0].changes[0].value["messages"][0]["text"]["body"]
 
+    console.log(process.env.AUTH_TOKEN)
     console.log(`number: ${sender_number} message: ${sent_message}`)
 
     echoed_message = send_data(sender_number, sent_message)
 
 
-    // axios(echoed_message).catch(function (error) {
-    //     console.log(error);
-    // });
+    axios(echoed_message).catch(function (error) {
+        // console.log(error);
+    });
 
+    res.sendStatus(200);
 
 
     // const echotext = `Received message was "${req.body.echothis}"`;
