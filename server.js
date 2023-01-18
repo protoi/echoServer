@@ -20,7 +20,7 @@ exp.get("/echo", (req, res) => {
     const keyChecker = req.query["hub.verify_token"];
     const challenge = req.query["hub.challenge"];
 
-    if (keyChecker == "helloworld") {
+    if (keyChecker === "helloworld") {
         res.send(challenge);
         console.log(`token: ${keyChecker}, challenge: ${challenge}`)
     }
@@ -29,6 +29,7 @@ exp.get("/echo", (req, res) => {
 });
 
 exp.post("/echo", (req, res) => {
+    console.log("hello world");
     // const echotext = `Received message was "${req.body.echothis}"`;
     console.log(req.body);
     res.send(req.body);
