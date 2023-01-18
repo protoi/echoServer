@@ -6,6 +6,37 @@ const port = 9999;
 exp.use(express.json());
 exp.use(express.urlencoded({ extended: true }));
 
+var axios = require('axios');
+
+
+function generate_data(phone, text) {
+    var data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "to": `${phone}`,
+        "type": "text",
+        "text": {
+            "body": `${text}`
+        }
+    });
+    return data;
+}
+
+
+function send_data(phone_no, text_message) {
+    var config = {
+        method: 'post',
+        url: 'https://graph.facebook.com/v15.0/105933825735159/messages',
+        headers: {
+            'Authorization': 'Bearer EAAM2puiL5QQBAMYlXZAmqMlsqwavzZAhFWNSQa6dL6uCghxgF1OZCcuJ8LIJZCeFeMqG434ACFVaxQCtXIS0sdikwFbfoW1RfoGS7fg14iSLHkbB0hhyArRJbMeSnM3uObjmZAiT1VdfYVIU5NSTZCrhZCeYHhW4dgJyUA7zof7fILM0sO8oouMakJfszig5uXRxnxUbSA0nNJFUlZBa2UZBu',
+            'Content-Type': 'application/json'
+        },
+        data: generate_data(phone_no, text_message)
+    };
+
+    return config;
+    
+
+}
 
 exp.get("/", (req, res) => {
     res.send("Hello world");
@@ -36,7 +67,19 @@ exp.post("/echo", (req, res) => {
     const sender_number = req.body.entry[0].changes[0].value["messages"][0]["from"]
     const sent_message = req.body.entry[0].changes[0].value["messages"][0]["text"]["body"]
 
+
+
     console.log(`number: ${sender_number} message: ${sent_message}`)
+
+    echoed_message = send_data(sender_number, sent_message)
+    axios(echoed_message).then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
 
     // const echotext = `Received message was "${req.body.echothis}"`;
     console.log(req.body);
