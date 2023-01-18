@@ -16,6 +16,18 @@ exp.get("/", (req, res) => {
 //     res.send(username);
 // });
 
+exp.get("/echo", (req, res) => {
+    const keyChecker = req.query["hub.verify_token"];
+    const challenge = req.query["hub.challenge"];
+
+    if (keyChecker == "helloworld") {
+        res.send(challenge);
+        console.log(`token: ${keyChecker}, challenge: ${challenge}`)
+    }
+    else
+        res.send(403);
+});
+
 exp.post("/echo", (req, res) => {
     // const echotext = `Received message was "${req.body.echothis}"`;
     console.log(req.body);
